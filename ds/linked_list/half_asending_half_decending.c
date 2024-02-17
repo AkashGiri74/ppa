@@ -1,0 +1,161 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  int data;
+  struct node *next;
+};
+ struct node * createnode()
+  {   int value; 
+    struct node * newnode=NULL;
+ newnode=(struct node *) malloc(sizeof(struct node ));
+ if (newnode==NULL)
+ {
+  puts("error in memory allocation");
+  exit(EXIT_FAILURE);
+ }
+ printf("enter element");
+ scanf("%d",&value);
+ newnode->data=value;
+ newnode->next=NULL;
+ 
+  return newnode;
+  }
+  void createlinklist(struct node ** head)
+  {
+    struct node * newnode=NULL;
+      struct node * tempnode=* head;
+      newnode=createnode();
+        if(*head==NULL)
+        {
+          *head=newnode;
+        }
+        else
+        {
+          while(tempnode->next!=NULL)
+          {
+            tempnode=tempnode->next;
+          }
+          tempnode->next=newnode;
+        }
+
+  }
+  void display(struct  node * head)
+  {
+    if (head==NULL)
+    {
+      printf("link list is empty");
+    
+    }
+    else{
+      while(head!=NULL)
+      {
+        printf("%d ",head->data);
+        head=head->next;
+      }
+    }
+  }
+  void sort_asending(struct node ** head)
+  {
+    struct node *tavnode=*head;
+    struct node *tempnode=NULL;
+     int temp;
+    for(tavnode=*head;tavnode!=NULL;tavnode=tavnode->next)
+    {
+      for(tempnode=tavnode->next;tempnode!=NULL;tempnode=tempnode->next)
+      {
+        if(tavnode->data > tempnode->data)
+        {  temp=tavnode->data;
+        tavnode->data=tempnode->data;
+        tempnode->data=temp;
+
+        }
+      }
+    }
+  }
+  void sort_dcending(struct node ** head)
+  {
+    struct node *tavnode=*head;
+    struct node *tempnode=NULL;
+     int temp;
+    for(tavnode=*head;tavnode!=NULL;tavnode=tavnode->next)
+    {
+      for(tempnode=tavnode->next;tempnode!=NULL;tempnode=tempnode->next)
+      {
+        if(tavnode->data < tempnode->data)
+        {  temp=tavnode->data;
+        tavnode->data=tempnode->data;
+        tempnode->data=temp;
+
+        }
+      }
+    }
+  }
+  int countnode(struct node * head)
+  {
+   int count=0;
+   while(head!=NULL)
+   {
+    count++;
+    head=head->next;
+   }
+   return  count;
+
+  }
+  void half_asending_half_decending(struct node ** head)
+  {  int n,i;
+      n=countnode(*head);
+      struct node * previousnode=NULL;
+      struct node * nextnode=*head;
+      for(i=0;i<n/2;i++)
+      {
+        previousnode=nextnode;
+        nextnode=nextnode->next;
+      }
+      previousnode->next=NULL;//separaete
+
+      sort_asending(head);//sort first half
+
+      sort_dcending(&nextnode);//sort second half
+
+      struct node * temp=*head;//merge again 
+      while(temp->next!=NULL)
+
+      
+      {
+        temp=temp->next;
+      }
+      temp->next=nextnode;
+
+  }
+int main ()
+{  struct node * first=NULL;
+int choice;
+do
+{
+  printf("1.create link list\n");
+  printf("2.display link list\n");
+  printf("3.sort asending\n");
+  printf("4.sort decending\n");
+  printf("5.half asending half decending\n");
+  printf("0.exit\n");
+
+     printf("enter your choice\n");
+     scanf("%d",&choice);
+     switch(choice)
+     {
+      case 1:createlinklist(&first);
+         break;
+         case 2:display(first);
+         break;
+       case 3:sort_asending(&first);
+       break;
+       case 4:sort_dcending(&first);
+       break;  
+       case 5:half_asending_half_decending(&first);
+         break;
+     }
+
+}while(choice !=0);
+
+}
