@@ -23,4 +23,7 @@ void main ()
    show_list(p_list,"insert after");
    status=insert_before(p_list,11,-235000);
    show_list(p_list,"insert before");
+
+   status=get_start(p_list,&data);
+   status=get_end(p_list,&data);
 }
