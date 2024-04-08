@@ -8,7 +8,7 @@ int main ()
  scanf("%d", &row) ;
   ptr=(int *)malloc (row sizeof(int*));
   
-  printf("enter no of columns\n");
+  printf("chal number tak\n");
   scanf("%d",&col);
   for(i=0;i<row;i++) 
   {
